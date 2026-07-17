@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . "/timezone.php";
+
 /**
  * Generate streak stats for a GitHub user from request-style parameters.
  *
@@ -86,10 +88,12 @@ function statsMissingOrStale(?array $cachedStats): bool
     $currentStreakEnd = $cachedStats["currentStreak"]["end"];
     $mode = $cachedStats["mode"] ?? "daily";
 
+    $currentDate = getCurrentDate();
+
     if ($mode === "weekly") {
-        $startOfWeek = date("Y-m-d", strtotime("last Sunday"));
+        $startOfWeek = $currentDate->modify("last Sunday")->format("Y-m-d");
         return $currentStreakEnd < $startOfWeek;
     } else {
-        return $currentStreakEnd < date("Y-m-d");
+        return $currentStreakEnd < $currentDate->format("Y-m-d");
     }
 }

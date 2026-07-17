@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . "/timezone.php";
+
 /**
  * Convert date from Y-M-D to more human-readable format
  *
@@ -12,11 +14,11 @@ declare(strict_types=1);
  */
 function formatDate(string $dateString, string|null $format, string $locale): string
 {
-    $date = new DateTime($dateString);
+    $date = new DateTime($dateString, getConfiguredTimezone());
     $formatted = "";
     $patternGenerator = new IntlDatePatternGenerator($locale);
     // if current year, display only month and day
-    if (date_format($date, "Y") == date("Y")) {
+    if (date_format($date, "Y") == getCurrentDate()->format("Y")) {
         if ($format) {
             // remove brackets and all text within them
             $formatted = date_format($date, preg_replace("/\[.*?\]/", "", $format));

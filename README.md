@@ -1,6 +1,6 @@
 <p align="center">
   <img src="https://i.imgur.com/GZHodUG.png" width="100px"/>
-  <h3 align="center">Github Readme Streak Stats</h3>
+  <h3 align="center">GitHub Readme Streak Stats Brasil</h3>
 </p>
 
 <p align="center">
@@ -255,7 +255,7 @@ Vercel is the recommended option for hosting the files since it is **free** and 
 2. Create your repository by filling in a Repository Name and clicking "Create"
 3. Visit [this link](https://github.com/settings/tokens/new?description=GitHub%20Readme%20Streak%20Stats) to create a new Personal Access Token (no scopes required)
 4. Scroll to the bottom and click **"Generate token"**
-5. **Add the token** as a Config Var with the key `TOKEN`:
+5. Add `TOKEN` with the generated token and `TIMEZONE` with `America/Sao_Paulo`:
 
 ![vercel environment variables](https://github.com/DenverCoder1/github-readme-streak-stats/assets/20955511/17a433d6-0aaa-4c69-9a53-6d4638318fbb)
 
@@ -276,9 +276,10 @@ Vercel is the recommended option for hosting the files since it is **free** and 
 8. Open [this link](https://github.com/settings/tokens/new?description=GitHub%20Readme%20Streak%20Stats) to create a new Personal Access Token on GitHub. You don't need to select any scopes for the token.
 9. Scroll to the bottom of the page and click on **"Generate token"**
 10. Visit the Vercel dashboard at <https://vercel.com/dashboard> and select your project. Then, click on **"Settings"** and choose **"Environment Variables"**.
-11. Add a new environment variable with the key `TOKEN` and the value as the token you generated in step 9, then save your changes
-12. (Optional) You can also set the `WHITELIST` environment variable to restrict which GitHub usernames can be accessed through the service. Provide the usernames as a comma-separated list, for example: `user1,user2,user3`. If the variable is not set, information can be requested for any GitHub user.
-13. To apply the new environment variable(s), you need to redeploy the app. Run `vercel --prod` to deploy the app to production.
+11. Add the `TOKEN` environment variable with the token generated in step 9
+12. Add the `TIMEZONE` environment variable with the value `America/Sao_Paulo`. If omitted or invalid, `America/Sao_Paulo` is used as the fallback.
+13. (Optional) Set `WHITELIST` to restrict which GitHub usernames can use the deployment. If omitted, information can be requested for any GitHub user.
+14. To apply the environment variables, redeploy the app. Run `vercel --prod` to deploy the app to production.
 
 ![image](https://user-images.githubusercontent.com/20955511/209588756-8bf5b0cd-9aa6-41e8-909c-97bf41e525b3.png)
 

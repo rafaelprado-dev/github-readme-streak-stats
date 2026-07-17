@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require_once "whitelist.php";
+require_once __DIR__ . "/timezone.php";
 
 /**
  * Build a GraphQL query for a contribution graph
@@ -128,7 +129,7 @@ function getContributionGraphs(string $user, ?int $startingYear = null): array
     }
 
     // get the list of years the user has contributed and the current year's contribution graph
-    $currentYear = intval(date("Y"));
+    $currentYear = intval(getCurrentDate()->format("Y"));
     $responses = executeContributionGraphRequests($user, [$currentYear]);
     // get user's created date (YYYY-MM-DDTHH:MM:SSZ format)
     $userCreatedDateTimeString = $responses[$currentYear]->data->user->createdAt ?? null;
@@ -257,8 +258,9 @@ function getGraphQLCurlHandle(string $query, string $token): CurlHandle
 function getContributionDates(array $contributionGraphs): array
 {
     $contributions = [];
-    $today = date("Y-m-d");
-    $tomorrow = date("Y-m-d", strtotime("tomorrow"));
+    $currentDate = getCurrentDate();
+    $today = $currentDate->format("Y-m-d");
+    $tomorrow = $currentDate->modify("+1 day")->format("Y-m-d");
     // sort contribution calendars by year key
     ksort($contributionGraphs);
     foreach ($contributionGraphs as $graph) {
